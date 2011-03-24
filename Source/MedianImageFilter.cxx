@@ -31,7 +31,7 @@ int main( int argc, char * argv[] )
     return EXIT_FAILURE;
     }
 
-  const unsigned int Dimension = 2;
+  const unsigned int Dimension = 3;
 
   typedef   unsigned char  InputPixelType;
   typedef   unsigned char  OutputPixelType;
@@ -56,6 +56,7 @@ int main( int argc, char * argv[] )
 
   indexRadius[0] = atoi( argv[3] );
   indexRadius[1] = atoi( argv[3] );
+  indexRadius[2] = 0;  // purposely don't process Z
 
   filter->SetRadius( indexRadius );
 
