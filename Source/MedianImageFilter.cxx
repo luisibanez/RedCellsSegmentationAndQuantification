@@ -24,10 +24,10 @@
 int main( int argc, char * argv[] )
 {
 
-  if( argc < 3 )
+  if( argc < 4 )
     {
     std::cerr << "Usage: " << std::endl;
-    std::cerr << argv[0] << "  inputImageFile   outputImageFile" << std::endl;
+    std::cerr << argv[0] << "  inputImageFile   outputImageFile radius" << std::endl;
     return EXIT_FAILURE;
     }
 
