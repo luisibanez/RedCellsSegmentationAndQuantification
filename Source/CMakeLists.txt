@@ -12,3 +12,6 @@ target_link_libraries( MedianImageFilter ${ITK_LIBRARIES} )
 
 add_executable( ExtractSurface  ExtractSurface.cxx )
 target_link_libraries( ExtractSurface vtkHybrid)
+
+add_executable( ComputeSurfaceAndVolume  ComputeSurfaceAndVolume.cxx )
+target_link_libraries( ComputeSurfaceAndVolume vtkHybrid)
