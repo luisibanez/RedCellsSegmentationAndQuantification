@@ -8,29 +8,25 @@
 #include "vtkRenderer.h"
 #include "vtkRenderWindow.h"
 #include "vtkRenderWindowInteractor.h"
+#include "vtkPolyDataWriter.h"
 
 int main(int argc, char* argv[])
 {
-  if (argc < 3)
+  if (argc < 4)
     {
     std::cerr << "Usage: " << argv[0]
-              << " InputFile(.mhd/.mha) Threshold" << std::endl;
+              << " InputFile(.mhd/.mha) OutputFile(.vtk) Threshold" << std::endl;
     return EXIT_FAILURE;
     }
 
-  const char* fileName = argv[1];
-  float threshold = atof(argv[2]);
-  int extractLargest = 1;
-
-  if (argc == 4)
-    {
-    extractLargest = atoi(argv[3]);
-    }
+  const char * inputFileName = argv[1];
+  const char * outputFileName = argv[2];
+  float threshold = atof(argv[3]);
 
   // Load data
   vtkSmartPointer<vtkMetaImageReader> reader =
     vtkSmartPointer<vtkMetaImageReader>::New();
-  reader->SetFileName(fileName);
+  reader->SetFileName(inputFileName);
 
   // Create a 3D surface
   vtkSmartPointer<vtkContourFilter> mc =
@@ -40,24 +36,27 @@ int main(int argc, char* argv[])
   mc->ComputeGradientsOn();
   mc->SetValue(0, threshold);  // second value acts as threshold
 
-  // To remain largest region
+  // To extract largest region
   vtkSmartPointer<vtkPolyDataConnectivityFilter> confilter =
     vtkSmartPointer<vtkPolyDataConnectivityFilter>::New();
+
   confilter->SetInputConnection(mc->GetOutputPort());
   confilter->SetExtractionModeToLargestRegion();
+
+
+  // Write out surface
+  vtkSmartPointer<vtkPolyDataWriter> writer =
+    vtkSmartPointer<vtkPolyDataWriter>::New();
+
+  writer->SetFileName( outputFileName );
+  writer->SetInputConnection( confilter->GetOutputPort() );
+  writer->Update();
 
   // Create a mapper
   vtkSmartPointer<vtkPolyDataMapper> mapper =
     vtkSmartPointer<vtkPolyDataMapper>::New();
 
-  if (extractLargest)
-    {
-    mapper->SetInputConnection(confilter->GetOutputPort());
-    }
-  else
-    {
-    mapper->SetInputConnection(mc->GetOutputPort());
-    }
+  mapper->SetInputConnection(confilter->GetOutputPort());
 
   mapper->ScalarVisibilityOff();    // utilize actor's property I set
 
