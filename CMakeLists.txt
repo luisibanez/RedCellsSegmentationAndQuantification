@@ -7,10 +7,12 @@ endif(COMMAND CMAKE_POLICY)
 project(RedCellsSegmentationAndQuantification)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin CACHE INTERNAL "Single output directory for building all executables.")
-set(ITK_EXECUTABLE_PATH "${EXECUTABLE_OUTPUT_PATH}")
 
 find_package(ITK REQUIRED)
 include(${ITK_USE_FILE})
+
+find_package(VTK REQUIRED)
+include(${VTK_USE_FILE})
 
 include(${PROJECT_SOURCE_DIR}/CMake/ExternalData.cmake)
 list(APPEND ExternalData_URL_TEMPLATES
