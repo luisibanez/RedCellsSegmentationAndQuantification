@@ -22,5 +22,8 @@ target_link_libraries( ComputeSurfaceAndVolume vtkHybrid)
 add_executable( RobustThresholdingPerSlice  RobustThresholdingPerSlice.cxx )
 target_link_libraries( RobustThresholdingPerSlice ${ITK_LIBRARIES})
 
+add_executable( RobustThresholdingOnSlice  RobustThresholdingOnSlice.cxx )
+target_link_libraries( RobustThresholdingOnSlice ${ITK_LIBRARIES})
+
 add_executable( OtsuThresholdingPerSlice  OtsuThresholdingPerSlice.cxx )
 target_link_libraries( OtsuThresholdingPerSlice ${ITK_LIBRARIES})
