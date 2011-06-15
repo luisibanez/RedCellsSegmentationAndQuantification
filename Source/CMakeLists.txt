@@ -4,6 +4,9 @@
 add_executable( ImageSeriesReadWrite  ImageSeriesReadWrite.cxx )
 target_link_libraries( ImageSeriesReadWrite ${ITK_LIBRARIES} )
 
+add_executable( ImageReadImageSeriesWrite  ImageReadImageSeriesWrite.cxx )
+target_link_libraries( ImageReadImageSeriesWrite ${ITK_LIBRARIES} )
+
 add_executable( SimpleImageReconstruction  SimpleImageReconstruction.cxx )
 target_link_libraries( SimpleImageReconstruction ${ITK_LIBRARIES} )
 
