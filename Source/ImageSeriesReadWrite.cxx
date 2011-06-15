@@ -32,7 +32,7 @@ int main( int argc, char ** argv )
 
   const unsigned int Dimension = 3;
 
-  typedef unsigned char                       PixelType;
+  typedef unsigned short                      PixelType;
   typedef itk::Image< PixelType, Dimension >  ImageType;
 
   typedef itk::ImageSeriesReader< ImageType >  ReaderType;
@@ -53,10 +53,7 @@ int main( int argc, char ** argv )
   NameGeneratorType::Pointer nameGenerator = NameGeneratorType::New();
 
 
-  std::string fileNameExpression = inputBaseFileName + "%03d.tif";
-
-
-  nameGenerator->SetSeriesFormat( fileNameExpression );
+  nameGenerator->SetSeriesFormat( inputBaseFileName );
 
   nameGenerator->SetStartIndex( first );
   nameGenerator->SetEndIndex( last );
