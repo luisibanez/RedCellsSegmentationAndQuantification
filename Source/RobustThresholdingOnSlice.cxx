@@ -47,11 +47,21 @@ int main(int argc, char * argv [] )
 
   ImageType::SpacingType spacing = inputImage->GetSpacing();
 
+  const double sigma = spacing[0] * 1.0;
+
+  std::cout << "Sigma = " << sigma << std::endl;
+
   typedef itk::GradientMagnitudeRecursiveGaussianImageFilter< ImageType, RealImageType > GradientType;
   GradientType::Pointer gradient = GradientType::New();
   gradient->SetInput( reader->GetOutput() );
-  gradient->SetSigma( spacing[2] );
+  gradient->SetSigma( sigma );
   gradient->Update();
+
+  typedef itk::ImageFileWriter< RealImageType > RealWriterType;
+  RealWriterType::Pointer realwriter = RealWriterType::New();
+  realwriter->SetInput( gradient->GetOutput() );
+  realwriter->SetFileName( "gradient.mha" );
+  realwriter->Update();
 
   typedef itk::RobustAutomaticThresholdImageFilter< ImageType, RealImageType > FilterType;
 
@@ -76,6 +86,6 @@ int main(int argc, char * argv [] )
     return EXIT_FAILURE;
     }
 
+  std::cout << "Computed Threshold = " << filter->GetThreshold() << std::endl;
   return EXIT_SUCCESS;
-
 }
