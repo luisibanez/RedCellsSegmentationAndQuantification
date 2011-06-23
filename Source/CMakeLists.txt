@@ -27,3 +27,6 @@ target_link_libraries( RobustThresholdingOnSlice ${ITK_LIBRARIES})
 
 add_executable( OtsuThresholdingPerSlice  OtsuThresholdingPerSlice.cxx )
 target_link_libraries( OtsuThresholdingPerSlice ${ITK_LIBRARIES})
+
+add_executable( BinaryThresholdingPerSlice  BinaryThresholdingPerSlice.cxx )
+target_link_libraries( BinaryThresholdingPerSlice ${ITK_LIBRARIES})
